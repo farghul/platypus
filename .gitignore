@@ -4,7 +4,6 @@
 *.dll
 *.so
 *.dylib
-vars.go
 
 # Test binary, built with `go test -c`
 *.test
@@ -14,11 +13,21 @@ vars.go
 
 # Dependency directories
 bin/
-logs/
 test/
+workers/vars.go
 vendor/
 
-# Default desktop settings files
+# Client workstations
 .DS_Store
+._.DS_Store
 Thumbs.db
 .idea
+.vscode
+
+# Go workspace file
+go.work
+go.work.sum
+
+# env file
+.env
+.env.example
