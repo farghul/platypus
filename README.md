@@ -5,7 +5,7 @@ Platypus is a WordPress plugin update search tool. It runs the standard `wp plug
 ![Platypus](platypus.webp)
 
 ```consolw
-Below is the current list of plugins requiring updates for test.blog.ca.
+Below is the current list of plugins requiring updates for test.blog.ca
 
 wpackagist-plugin/gutenberg:14.8.2
 wpackagist-plugin/stackable-ultimate-gutenberg-blocks:3.6.3
@@ -17,17 +17,22 @@ wpackagist-plugin/tablepress:2.0.1
 
 Googles' [Go language](https://go.dev) installed to enable building executables from source code.
 
-Creation of a variables file with the following values as per your environment:
+Creation of a separate variables file with the following values as per your environment:
 
 ```go
+// WordPress installation specific values 
 const (
-server, path, site string = /* [target server], [wordpress path], [wordpress url] */
-sender, recipient, user string = /* [mail sender], [mail recipient], [authorized user] */
+	server    string = /* [Server hosting WordPress] */
+	path      string = /* [Path on the server to the WordPress install] */
+	site      string = /* [WordPress base url (no leading protocol)] */
+	sender    string = /* [email sender address] */
+	recipient string = /* [email recipient(s) address(es)] */
+	user      string = /* [user authorized to run the program] */
 )
 
-// Allow only a predefined set of servers
+// Predefined list of servers
 var (
-servers = []string{/* list of servers to test against */}
+	servers = []string{/* list of servers to test against */}
 )
 ```
 
@@ -38,13 +43,13 @@ From the root folder containing *main.go*, use the command that matches your env
 ### Windows & Mac:
 
 ```bash
-go build -o [name] main.go
+go build -o [name] .
 ```
 
 ### Linux:
 
 ```bash
-GOOS=linux GOARCH=amd64 go build -o [name] main.go
+GOOS=linux GOARCH=amd64 go build -o [name] .
 ```
 
 ## Run

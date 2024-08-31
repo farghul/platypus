@@ -1,4 +1,4 @@
-package workers
+package main
 
 import (
 	"io"
@@ -44,9 +44,9 @@ func mailman(list string) {
 		inspect(err)
 	}()
 
-	out, _ := cmd.CombinedOutput()
+	// out, _ := cmd.CombinedOutput()
 
-	journal("Email sent" + string(out))
+	journal("Updates found and email sent")
 }
 
 // Pipe together commands using the exec.Command function
@@ -63,6 +63,14 @@ func concat(method, flag, task, pipe string) []byte {
 
 	out, _ := cmd.CombinedOutput()
 	return out
+}
+
+// Record a message to a log file
+func journal(message string) {
+	file, err := os.OpenFile("logs/platypus.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	inspect(err)
+	log.SetOutput(file)
+	log.Println(message)
 }
 
 // Remove files or directories
