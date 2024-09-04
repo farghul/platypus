@@ -4,7 +4,7 @@ Platypus is a WordPress plugin update search tool. It runs the standard `wp plug
 
 ![Platypus](platypus.webp)
 
-```consolw
+```console
 Below is the current list of plugins requiring updates for test.blog.ca
 
 wpackagist-plugin/gutenberg:14.8.2
@@ -17,7 +17,7 @@ wpackagist-plugin/tablepress:2.0.1
 
 Googles' [Go language](https://go.dev) installed to enable building executables from source code.
 
-Creation of a separate variables file with the following values as per your environment:
+Creation of a separate file (*env.go*) with the following values as per your environment:
 
 ```go
 // WordPress installation specific values 
@@ -42,28 +42,34 @@ From the root folder containing *main.go*, use the command that matches your env
 
 ### Windows & Mac:
 
-```bash
+```console
 go build -o [name] .
 ```
 
 ### Linux:
 
-```bash
+```console
 GOOS=linux GOARCH=amd64 go build -o [name] .
+```
+
+## Options
+
+```console
+-c, --collect    Search for Plugin Updates
+-h, --help       Help Information
+-v, --version    Display App Version
 ```
 
 ## Run
 
-```bash
+```console
 ./[program] [flag]
 ```
 
-Currently the only working flags are **-p**, **-h**, and **-v**
-
 Example:
 
-```bash
-./platypus -p
+```console
+./platypus -c
 ```
 
 ## License

@@ -13,7 +13,6 @@ const (
 	yellow   string = "\033[33m"
 	bgyellow string = "\033[43m"
 	halt     string = "program halted"
-	zero     string = "Insufficient arguments supplied - " + halt
 	tickets  string = "https://theeventscalendar.com/category/release-notes/"
 	poly     string = "https://polylang.pro/downloads/polylang-pro/?changelog=1"
 	wpexport string = "https://www.wpallimport.com/downloads/wp-all-export-pro/?changelog=1"
@@ -24,12 +23,12 @@ func main() {
 	var flag string = flags()
 
 	switch flag {
-	case "-v", "--version":
-		build()
+	case "-c", "--collect":
+		plugin()
 	case "-h", "--help":
 		help()
-	case "-p", "--plugin":
-		plugin()
+	case "-v", "--version":
+		build()
 	case "--zero":
 		alert("No flag detected -")
 	default:
@@ -66,14 +65,14 @@ func help() {
 	fmt.Println(yellow, "\nUsage:", reset)
 	fmt.Println("  ./[program] [flag]")
 	fmt.Println(yellow, "\nOptions:")
-	fmt.Println(green, " -p, --plugin", reset, " Search for Plugin Updates")
-	fmt.Println(green, " -v, --version", reset, "Display App Version")
-	fmt.Println(green, " -h, --help", reset, "	 Help Information")
+	fmt.Println(green, " -c, --collect", reset, "  Search for Plugin Updates")
+	fmt.Println(green, " -h, --help", reset, "	   Help Information")
+	fmt.Println(green, " -v, --version", reset, "  Display App Version")
 	fmt.Println(yellow, "\nExample:", reset)
 	fmt.Println("  In your WordPress installation folder, run:")
-	fmt.Println(green, "\n    ./platypus -p")
+	fmt.Println(green, "    ./platypus -c")
 	fmt.Println(yellow, "\nHelp:", reset)
 	fmt.Println("  For more information go to:")
-	fmt.Println(green, "\n    https://github.com/farghul/platypus.git")
+	fmt.Println(green, "    https://github.com/farghul/platypus.git")
 	fmt.Println(reset)
 }
