@@ -58,7 +58,7 @@ func alert(message string) {
 
 // Display the build version of the program
 func build() {
-	fmt.Println("\n", yellow+"Platypus", green+bv)
+	fmt.Println("\n", yellow+"Platypus", green+bv, reset)
 }
 
 // Print the help information
