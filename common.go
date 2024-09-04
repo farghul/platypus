@@ -44,9 +44,9 @@ func mailman(list string) {
 		inspect(err)
 	}()
 
-	// out, _ := cmd.CombinedOutput()
+	out, _ := cmd.CombinedOutput() // Necessary although valueless
 
-	journal("Updates found and email sent")
+	journal("Updates found and email sent" + string(out))
 }
 
 // Pipe together commands using the exec.Command function
