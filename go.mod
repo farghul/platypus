@@ -1,3 +1,3 @@
-module github.com/nausicaan/platypus
+module github.com/farghul/platypus
 
-go 1.22
+go 1.23

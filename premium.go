@@ -1,9 +1,8 @@
-package workers
+package main
 
 import (
 	"os"
 	"regexp"
-	"sort"
 	"strings"
 )
 
@@ -16,9 +15,9 @@ func assemble() string {
 	var exportInstalled = current("bcgov-plugin/wp-all-export-pro")
 	var ticketsInstalled = current("bcgov-plugin/event-tickets-plus")
 	var polylangInstalled = current("bcgov-plugin/polylang-pro")
-	var exportAvailable = latest("https://www.wpallimport.com/downloads/wp-all-export-pro/?changelog=1", "h4")
-	var ticketsAvailable = latest("https://theeventscalendar.com/category/release-notes/", "Event Tickets Plus")
-	var polylangAvailable = latest("https://polylang.pro/downloads/polylang-pro/", "vendd-detail-info")
+	var exportAvailable = latest(wpexport, "h4")
+	var ticketsAvailable = latest(tickets, "Event Tickets Plus")
+	var polylangAvailable = latest(poly, "h4")
 	collect := results(ticketsAvailable, ticketsInstalled, "event-tickets-plus") + results(polylangAvailable, polylangInstalled, "polylang-pro") + results(exportAvailable, exportInstalled, "wp-all-export-pro")
 	return collect
 }
@@ -63,11 +62,4 @@ func regmatch(p string) string {
 	}
 	result := strings.Join(match, " ")
 	return result
-}
-
-func alphabetize(list string) string {
-	s := strings.Split(list, "\n")
-	sort.Strings(s)
-	t := strings.Join(s, "\n")
-	return t
 }

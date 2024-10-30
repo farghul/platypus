@@ -11,10 +11,12 @@
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
+# Individual files
+vars.go
+
 # Dependency directories
 bin/
 test/
-workers/vars.go
 vendor/
 
 # Client workstations
