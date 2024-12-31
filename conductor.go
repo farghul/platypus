@@ -28,7 +28,7 @@ func plugin() {
 
 // Run the wp command to check for updates
 func wpcli(x, y, z string) []string {
-	c := capture("wp", x, y, z, "--fields=name,version,update_version", "--format=csv", "--ssh="+user+":"+path, "--url="+site)
+	c := capture("wp", x, y, z, "--fields=name,version,update_version", "--format=csv", "--ssh="+user+":"+blog, "--url="+site)
 	f := strings.ReplaceAll(string(c), "\n", ",")
 	r := strings.Split(f, ",")
 	return r

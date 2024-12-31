@@ -67,7 +67,7 @@ func concat(method, flag, task, pipe string) []byte {
 
 // Record a message to a log file
 func journal(message string) {
-	file, err := os.OpenFile("logs/platypus.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	file, err := os.OpenFile(home+"logs/platypus.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	inspect(err)
 	log.SetOutput(file)
 	log.Println(message)

@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	web, tmp, grp string = "temp/webscrape.txt", "temp/temp.json", "temp/grepped.txt"
+	web, tmp, grp string = home + "temp/webscrape.txt", home + "temp/temp.json", home + "temp/grepped.txt"
 )
 
 // Run the functions to gather premium plugin versions currently installed and available
@@ -33,7 +33,7 @@ func results(update, current, plugin string) string {
 
 // Find the current versions of our premium plugins from the composer.json file
 func current(p string) string {
-	where := strings.TrimSuffix(path, "web/wp") + "composer.json"
+	where := strings.TrimSuffix(blog, "web/wp") + "composer.json"
 	what := concat("ssh", "-T", user, " cat "+where)
 	inspect(os.WriteFile(tmp, what, 0666))
 	grep := capture("grep", p, tmp)
