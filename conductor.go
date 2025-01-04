@@ -45,11 +45,11 @@ func packagist(r []string) string {
 	for i := 0; i < len(r)-1; i++ {
 		switch r[i] {
 		case "events-virtual":
-			value += "bcgov-plugin/" + r[i] + ":" + r[i+2] + "\n"
+			value += "premium-plugin/" + r[i] + ":" + r[i+2] + "\n"
 		case "events-calendar-pro":
-			value += "bcgov-plugin/" + r[i] + ":" + r[i+2] + "\n"
+			value += "premium-plugin/" + r[i] + ":" + r[i+2] + "\n"
 		case "gravityforms":
-			value += "bcgov-plugin/" + r[i] + ":" + r[i+2] + "\n"
+			value += "premium-plugin/" + r[i] + ":" + r[i+2] + "\n"
 		default:
 			value += "wpackagist-plugin/" + r[i] + ":" + r[i+2] + "\n"
 		}

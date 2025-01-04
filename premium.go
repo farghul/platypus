@@ -12,9 +12,9 @@ const (
 
 // Run the functions to gather premium plugin versions currently installed and available
 func assemble() string {
-	var exportInstalled = current("bcgov-plugin/wp-all-export-pro")
-	var ticketsInstalled = current("bcgov-plugin/event-tickets-plus")
-	var polylangInstalled = current("bcgov-plugin/polylang-pro")
+	var exportInstalled = current("premium-plugin/wp-all-export-pro")
+	var ticketsInstalled = current("premium-plugin/event-tickets-plus")
+	var polylangInstalled = current("premium-plugin/polylang-pro")
 	var exportAvailable = latest(wpexport, "h4")
 	var ticketsAvailable = latest(tickets, "Event Tickets Plus")
 	var polylangAvailable = latest(poly, "h4")
@@ -26,7 +26,7 @@ func assemble() string {
 func results(update, current, plugin string) string {
 	var status string
 	if update > current {
-		status = "bcgov-plugin/" + plugin + ":" + update + "\n"
+		status = "premium-plugin/" + plugin + ":" + update + "\n"
 	}
 	return status
 }
