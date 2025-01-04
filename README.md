@@ -23,7 +23,7 @@ Creation of a `vars.go` file with the following values as per your environment:
 // WordPress installation specific values 
 const (
 	server    string = /* [Server hosting WordPress] */
-	path      string = /* [Path on the server to the WordPress install] */
+	blog      string = /* [Path on the server to the WordPress install] */
 	site      string = /* [WordPress base url (no leading protocol)] */
 	sender    string = /* [email sender address] */
 	recipient string = /* [email recipient(s) address(es)] */

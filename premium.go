@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	web, tmp, grp string = home + "temp/webscrape.txt", home + "temp/temp.json", home + "temp/grepped.txt"
+	web, tmp, grp string = assets + "temp/webscrape.txt", assets + "temp/temp.json", assets + "temp/grepped.txt"
 )
 
 // Run the functions to gather premium plugin versions currently installed and available
