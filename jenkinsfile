@@ -9,26 +9,32 @@ pipeline {
         )
     }
     triggers {
-        cron "H 8 * * 3"
+        cron "H 8 * * 2"
     }
     stages {
         stage('Sync') {
             steps {
-                dir("/data/scripts/automation/repos/platypus") {
-                    sh 'git pull'
+                lock('satis-rebuild-resource') {
+                    dir("/data/scripts/automation/repos/platypus") {
+                        sh 'git pull'
+                    }
                 }
             }
         }
         stage('Build') {
             steps {
-                sh 'GOOS=linux GOARCH=amd64 go build -o /data/scripts/automation/programs/platypus .'
+                lock('satis-rebuild-resource') {
+                    sh '/data/apps/go/bin/go build -o /data/scripts/automation/programs/platypus .'
+                }
             }
         }
         stage('Deploy') {
             steps {
-                timeout(time: 1, unit: 'MINUTES') {
-                    retry(2) {
-                        sh '/data/scripts/automation/programs/platypus.sh'
+                lock('satis-rebuild-resource') {
+                    timeout(time: 1, unit: 'MINUTES') {
+                        retry(2) {
+                            sh '/data/scripts/automation/programs/platypus.sh'
+                        }
                     }
                 }
             }
