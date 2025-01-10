@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	bv       string = "1.1.0"
+	bv       string = "1.0.0"
 	reset    string = "\033[0m"
 	bgred    string = "\033[41m"
 	green    string = "\033[32m"

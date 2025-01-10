@@ -1,25 +1,32 @@
 pipeline {
-    agent none
+    agent { label 'cactuar && deploy' }
+    options {
+        buildDiscarder logRotator(
+            artifactDaysToKeepStr: "28",
+            artifactNumToKeepStr: "5",
+            daysToKeepStr: "56",
+            numToKeepStr: "10"
+        )
+    }
     triggers {
-        cron('H 8 * * 3')
+        cron "H 8 * * 3"
     }
     stages {
         stage('Sync') {
-            agent { label 'cactuar && deploy' }
             steps {
-                sh 'cd /data/scripts/automation/repos/platypus && git pull'
+                dir("/data/scripts/automation/repos/platypus") {
+                    sh 'git pull'
+                }
             }
         }
         stage('Build') {
-            agent { docker 'golang:1.23.4' }
             steps {
                 sh 'GOOS=linux GOARCH=amd64 go build -o /data/scripts/automation/programs/platypus .'
             }
         }
         stage('Deploy') {
-            agent { label 'cactuar && deploy' }
             steps {
-                timeout(time: 3, unit: 'MINUTES') {
+                timeout(time: 1, unit: 'MINUTES') {
                     retry(2) {
                         sh '/data/scripts/automation/programs/platypus.sh'
                     }
