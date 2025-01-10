@@ -24,14 +24,16 @@ pipeline {
         stage('Build') {
             steps {
                 lock('satis-rebuild-resource') {
-                    sh '/data/apps/go/bin/go build -o /data/scripts/automation/programs/platypus .'
+                    dir("/data/scripts/automation/repos/platypus") {
+                        sh '/data/apps/go/bin/go build -o /data/scripts/automation/programs/platypus .'
+                    }
                 }
             }
         }
         stage('Deploy') {
             steps {
                 lock('satis-rebuild-resource') {
-                    timeout(time: 1, unit: 'MINUTES') {
+                    timeout(time: 2, unit: 'MINUTES') {
                         retry(2) {
                             sh '/data/scripts/automation/programs/platypus.sh'
                         }
