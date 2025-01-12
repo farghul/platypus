@@ -55,7 +55,6 @@ GOOS=linux GOARCH=amd64 go build -o [name] .
 ## Options
 
 ``` console
--c, --collect    Search for Plugin Updates
 -h, --help       Help Information
 -v, --version    Display App Version
 ```
@@ -69,7 +68,7 @@ GOOS=linux GOARCH=amd64 go build -o [name] .
 Example:
 
 ``` console
-./platypus -c
+./platypus
 ```
 
 ## License

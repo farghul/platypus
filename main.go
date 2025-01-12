@@ -24,14 +24,12 @@ func main() {
 	var flag string = flags()
 
 	switch flag {
-	case "-c", "--collect":
-		plugin()
 	case "-h", "--help":
 		help()
 	case "-v", "--version":
 		build()
 	case "--zero":
-		alert("No flag detected -")
+		plugin()
 	default:
 		alert("Unknown flag detected -")
 	}
@@ -66,12 +64,11 @@ func help() {
 	fmt.Println(yellow, "\nUsage:", reset)
 	fmt.Println("  ./[program] [flag]")
 	fmt.Println(yellow, "\nOptions:")
-	fmt.Println(green, " -c, --collect", reset, "  Search for Plugin Updates")
 	fmt.Println(green, " -h, --help", reset, "	   Help Information")
 	fmt.Println(green, " -v, --version", reset, "  Display App Version")
 	fmt.Println(yellow, "\nExample:", reset)
 	fmt.Println("  In your WordPress installation folder, run:")
-	fmt.Println(green, "    ./platypus -c")
+	fmt.Println(green, "    ./platypus")
 	fmt.Println(yellow, "\nHelp:", reset)
 	fmt.Println("  For more information go to:")
 	fmt.Println(green, "    https://github.com/farghul/platypus.git")
