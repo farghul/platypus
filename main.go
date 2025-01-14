@@ -19,7 +19,7 @@ const (
 	wpexport string = "https://www.wpallimport.com/downloads/wp-all-export-pro/?changelog=1"
 )
 
-// Launch the program and execute according to the supplied flag
+// Launch the program and execute according to the results of the switch statement
 func main() {
 	var flag string = flags()
 
@@ -35,7 +35,7 @@ func main() {
 	}
 }
 
-// Test for a proper flag
+// Test for an optional flag
 func flags() string {
 	var flag string
 

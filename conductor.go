@@ -58,6 +58,7 @@ func packagist(r []string) string {
 	return strings.TrimRight(value, " ")
 }
 
+// Alphabetize the update list before emailing it
 func alphabetize(list string) string {
 	s := strings.Split(list, "\n")
 	sort.Strings(s)
