@@ -13,10 +13,6 @@ const (
 	yellow   string = "\033[33m"
 	bgyellow string = "\033[43m"
 	halt     string = "program halted"
-	assets   string = "/data/scripts/automation/programs/"
-	tickets  string = "https://theeventscalendar.com/category/release-notes/"
-	poly     string = "https://polylang.pro/downloads/polylang-pro/?changelog=1"
-	wpexport string = "https://www.wpallimport.com/downloads/wp-all-export-pro/?changelog=1"
 )
 
 // Launch the program and execute according to the results of the switch statement

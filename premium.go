@@ -7,6 +7,10 @@ import (
 )
 
 const (
+	assets        string = "/data/scripts/automation/programs/"
+	tickets       string = "https://theeventscalendar.com/category/release-notes/"
+	poly          string = "https://polylang.pro/downloads/polylang-pro/?changelog=1"
+	wpexport      string = "https://www.wpallimport.com/downloads/wp-all-export-pro/?changelog=1"
 	web, tmp, grp string = assets + "temp/webscrape.txt", assets + "temp/temp.json", assets + "temp/grepped.txt"
 )
 
