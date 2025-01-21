@@ -9,7 +9,7 @@ pipeline {
         )
     }
     triggers {
-        cron "0 8 * * 2"
+        cron "H 8 * * 2"
     }
     stages {
         stage('Sync') {
@@ -40,6 +40,11 @@ pipeline {
                     }
                 }
             }
+        }
+    }
+    post {
+        success {
+            build job: '2DS - Create Jira Tickets'
         }
     }
 }
