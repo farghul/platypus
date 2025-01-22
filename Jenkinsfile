@@ -42,9 +42,4 @@ pipeline {
             }
         }
     }
-    post {
-        success {
-            build job: '2DS - Create Jira Tickets'
-        }
-    }
 }
