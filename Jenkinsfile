@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'cactuar && deploy' }
+    agent { label "cactuar && deploy" }
     options {
         buildDiscarder logRotator(
             artifactDaysToKeepStr: "28",
@@ -9,33 +9,33 @@ pipeline {
         )
     }
     triggers {
-        cron "H 8 * * 2"
+        cron "H 8 * * 3"
     }
     stages {
-        stage('Sync') {
+        stage("Sync") {
             steps {
-                lock('satis-rebuild-resource') {
+                lock("satis-rebuild-resource") {
                     dir("/data/scripts/automation/github/platypus") {
-                        sh 'git pull'
+                        sh "git pull"
                     }
                 }
             }
         }
-        stage('Build') {
+        stage("Build") {
             steps {
-                lock('satis-rebuild-resource') {
+                lock("satis-rebuild-resource") {
                     dir("/data/scripts/automation/github/platypus") {
-                        sh '/data/apps/go/bin/go build -o /data/scripts/automation/programs/platypus .'
+                        sh "/data/apps/go/bin/go build -o /data/scripts/automation/programs/platypus ."
                     }
                 }
             }
         }
-        stage('Check') {
+        stage("Run") {
             steps {
-                lock('satis-rebuild-resource') {
-                    timeout(time: 5, unit: 'MINUTES') {
+                lock("satis-rebuild-resource") {
+                    timeout(time: 5, unit: "MINUTES") {
                         retry(2) {
-                            sh '/data/scripts/automation/scripts/run_platypus.sh'
+                            sh "/data/scripts/automation/scripts/run_platypus.sh"
                         }
                     }
                 }
