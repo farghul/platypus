@@ -62,6 +62,7 @@ GOOS=linux GOARCH=amd64 go build -o [name] .
 
 ``` console
 -h, --help       Help Information
+-r, --run        Run Program
 -v, --version    Display App Version
 ```
 
@@ -74,7 +75,7 @@ GOOS=linux GOARCH=amd64 go build -o [name] .
 Example:
 
 ``` console
-./platypus
+./platypus -r
 ```
 
 ## License

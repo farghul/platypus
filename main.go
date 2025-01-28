@@ -22,12 +22,14 @@ func main() {
 	switch flag {
 	case "-h", "--help":
 		help()
+	case "-r", "--run":
+		plugin()
 	case "-v", "--version":
 		build()
 	case "--zero":
-		plugin()
+		alert("No flag detected -")
 	default:
-		alert("Unknown flag detected -")
+		alert("Unknown argument(s) -")
 	}
 }
 
@@ -59,8 +61,9 @@ func build() {
 func help() {
 	fmt.Println(yellow, "\nUsage:", reset)
 	fmt.Println("  ./[program] [flag]")
-	fmt.Println(yellow, "\nOptions:")
+	fmt.Println(yellow, "\nOperational Flags:")
 	fmt.Println(green, " -h, --help", reset, "	   Help Information")
+	fmt.Println(green, " -r, --run", reset, "      Run Program")
 	fmt.Println(green, " -v, --version", reset, "  Display App Version")
 	fmt.Println(yellow, "\nExample:", reset)
 	fmt.Println("  In your WordPress installation folder, run:")
