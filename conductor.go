@@ -70,7 +70,7 @@ func alphabetize(list string) string {
 func gotcha(output []string) {
 	for i := 0; i < len(output); i++ {
 		if strings.Contains(output[i], "Notice:") {
-			alert("PHP Error on server interupting core functionality - ")
+			alert("PHP Error on server interupting core functionality -")
 		}
 	}
 }
