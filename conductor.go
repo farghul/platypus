@@ -68,7 +68,9 @@ func alphabetize(list string) string {
 }
 
 func gotcha(output []string) {
-	if strings.Contains(output[0], "PHP Notice") {
-		alert("PHP Error interupting program")
+	for i := 0; i < len(output); i++ {
+		if strings.Contains(output[i], "PHP Notice") {
+			alert("PHP Error interupting program")
+		}
 	}
 }
