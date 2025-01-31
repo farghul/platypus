@@ -1,30 +1,29 @@
 package main
 
 import (
-	"fmt"
+	"os"
 	"sort"
 	"strings"
 )
 
 // Trigger the search for updates
 func plugin() {
-	// short := []string{tmp, grp, web}
+	short := []string{tmp, grp, web}
 	if present() {
 		ups := wpcli("plugin", "list", "--update=available")
 		gotcha(ups)
-		fmt.Println(ups)
-		// premix := packagist(ups) + assemble()
-		// body := alphabetize(premix)
-		// if len(body) > 0 {
-		// 	err := os.WriteFile(assets+"updates/updates.txt", []byte(body), 0666)
-		// 	inspect(err)
-		// 	mailman(body)
-		// } else {
-		// 	journal("No updates found for " + site)
-		// }
-		// for _, v := range short {
-		// 	cleanup(v)
-		// }
+		premix := packagist(ups) + assemble()
+		body := alphabetize(premix)
+		if len(body) > 0 {
+			err := os.WriteFile(assets+"updates/updates.txt", []byte(body), 0666)
+			inspect(err)
+			mailman(body)
+		} else {
+			journal("No updates found for " + site)
+		}
+		for _, v := range short {
+			cleanup(v)
+		}
 	}
 }
 
@@ -70,7 +69,7 @@ func alphabetize(list string) string {
 
 func gotcha(output []string) {
 	for i := 0; i < len(output); i++ {
-		if strings.Contains(output[i], "PHP Notice") {
+		if strings.Contains(output[i], "Notice:") {
 			alert("PHP Error interupting program")
 		}
 	}
