@@ -9,8 +9,9 @@ import (
 // Trigger the search for updates
 func plugin() {
 	short := []string{tmp, grp, web}
-	if contains() {
+	if present() {
 		ups := wpcli("plugin", "list", "--update=available")
+		gotcha(ups)
 		premix := packagist(ups) + assemble()
 		body := alphabetize(premix)
 		if len(body) > 0 {
@@ -64,4 +65,10 @@ func alphabetize(list string) string {
 	sort.Strings(s)
 	t := strings.Join(s, "\n")
 	return t
+}
+
+func gotcha(output []string) {
+	if strings.Contains(output[0], "PHP Notice") {
+		alert("PHP Error interupting program")
+	}
 }

@@ -8,7 +8,7 @@ import (
 )
 
 // Test if the server value passed to the program is on the list
-func contains() bool {
+func present() bool {
 	for _, v := range servers {
 		if v == server {
 			return true
