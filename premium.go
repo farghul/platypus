@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	assets        string = "/data/scripts/automation/assets/"
+	assets        string = "/data/automation/assets/"
 	tickets       string = "https://theeventscalendar.com/category/release-notes/"
 	poly          string = "https://polylang.pro/downloads/polylang-pro/?changelog=1"
 	wpexport      string = "https://www.wpallimport.com/downloads/wp-all-export-pro/?changelog=1"

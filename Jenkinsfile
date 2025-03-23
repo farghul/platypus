@@ -15,7 +15,7 @@ pipeline {
         stage("Sync") {
             steps {
                 lock("satis-rebuild-resource") {
-                    dir("/data/scripts/automation/github/platypus") {
+                    dir("/data/automation/github/platypus") {
                         sh "git pull"
                     }
                 }
@@ -24,8 +24,8 @@ pipeline {
         stage("Build") {
             steps {
                 lock("satis-rebuild-resource") {
-                    dir("/data/scripts/automation/github/platypus") {
-                        sh "/data/apps/go/bin/go build -o /data/scripts/automation/programs/platypus ."
+                    dir("/data/automation/github/platypus") {
+                        sh "/data/apps/go/bin/go build -o /data/automation/bin/platypus ."
                     }
                 }
             }
@@ -35,7 +35,7 @@ pipeline {
                 lock("satis-rebuild-resource") {
                     timeout(time: 5, unit: "MINUTES") {
                         retry(2) {
-                            sh "/data/scripts/automation/scripts/run_platypus.sh"
+                            sh "/data/automation/scripts/run_platypus.sh"
                         }
                     }
                 }
