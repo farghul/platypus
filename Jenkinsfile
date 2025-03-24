@@ -35,7 +35,7 @@ pipeline {
                 lock("satis-rebuild-resource") {
                     timeout(time: 5, unit: "MINUTES") {
                         retry(2) {
-                            sh "/data/automation/scripts/run_platypus.sh"
+                            sh "/data/automation/scripts/platypus.sh"
                         }
                     }
                 }
