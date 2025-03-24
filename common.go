@@ -5,13 +5,7 @@ import (
 	"log"
 	"os"
 	"os/exec"
-	"slices"
 )
-
-// Test if the server value passed to the program is on the list
-func present() bool {
-	return slices.Contains(servers, server)
-}
 
 // Run a terminal command, then capture and return the output as a byte
 func capture(task string, args ...string) []byte {
@@ -30,13 +24,13 @@ func inspect(err error) {
 
 // Run the Linux mail command and email the result to the configured recipent(s)
 func mailman(list string) {
-	cmd := exec.Command("mail", "-s", "WordPress updates for "+site, "-r", "Delivery Cactuar <"+sender+">", recipient)
+	cmd := exec.Command("mail", "-s", "WordPress updates for "+environment["site"], "-r", "Delivery Cactuar <"+environment["sender"]+">", environment["recipient"])
 	stdin, err := cmd.StdinPipe()
 	inspect(err)
 
 	go func() {
 		defer stdin.Close()
-		_, err := io.WriteString(stdin, "Below is the current list of plugins requiring updates for "+site+". Have a magical day!\n\n"+list)
+		_, err := io.WriteString(stdin, "Below is the current list of plugins requiring updates for "+environment["site"]+". Have a magical day!\n\n"+list)
 		inspect(err)
 	}()
 
@@ -59,6 +53,16 @@ func concat(method, flag, task, pipe string) []byte {
 
 	out, _ := cmd.CombinedOutput()
 	return out
+}
+
+// Read any file and return the contents as a byte variable
+func read(file string) []byte {
+	mission, err := os.Open(file)
+	inspect(err)
+	outcome, err := io.ReadAll(mission)
+	inspect(err)
+	defer mission.Close()
+	return outcome
 }
 
 // Record a message to a log file

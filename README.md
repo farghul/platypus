@@ -17,31 +17,25 @@ wpackagist-plugin/tablepress:2.0.1
 
 Googles' [Go language](https://go.dev) installed to enable building executables from source code.
 
-Creation of a `vars.go` file with the following values as per your environment:
+Creation of a `env.json` file with the following values as per your environment:
 
-``` go
-// WordPress installation specific values 
-const (
-	server    string = /* [Server hosting WordPress] */
-	blog      string = /* [Path on the server to the WordPress install] */
-	site      string = /* [WordPress base url (no leading protocol)] */
-	sender    string = /* [email sender address] */
-	recipient string = /* [email recipient(s) address(es)] */
-	user      string = /* [user authorized to run the program] */
-)
-
-// Predefined list of servers
-var (
-	servers = []string{/* list of servers to test against */}
-)
+``` json
+{
+    "blog": "Path on the server to the WordPress install",
+    "recipient": "Email recipient(s) address(es)",
+    "sender": "Email sender address",
+    "server": "Server hosting WordPress",
+    "site": "WordPress base url (no leading protocol)",
+    "user": "User authorized to run the program"
+}
 ```
 
 ## Build
 
-Before building the application, change the value of the `assets` constant to reflect your environment:
+Before building the application, change the value of the `base` constant to reflect your environment:
 
 ``` go
-assets string = "/data/automation/assets/"
+base string = "/data/automation/"
 ```
 
 Then, from the root folder containing `main.go`, use the command that matches your environment:

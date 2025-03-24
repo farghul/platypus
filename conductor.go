@@ -10,27 +10,25 @@ import (
 // Trigger the search for updates
 func plugin() {
 	short := []string{tmp, grp, web}
-	if present() {
-		ups := wpcli("plugin", "list", "--update=available")
-		gotcha(ups)
-		premix := packagist(ups) + assemble()
-		body := alphabetize(premix)
-		if len(body) > 0 {
-			err := os.WriteFile(base+"assets/updates.txt", []byte(body), 0666)
-			inspect(err)
-			mailman(body)
-		} else {
-			journal("No updates found for " + site)
-		}
-		for _, v := range short {
-			cleanup(v)
-		}
+	ups := wpcli("plugin", "list", "--update=available")
+	gotcha(ups)
+	premix := packagist(ups) + assemble()
+	body := alphabetize(premix)
+	if len(body) > 0 {
+		err := os.WriteFile(base+"assets/updates.txt", []byte(body), 0666)
+		inspect(err)
+		mailman(body)
+	} else {
+		journal("No updates found for " + environment["site"])
+	}
+	for _, v := range short {
+		cleanup(v)
 	}
 }
 
 // Run the wp command to check for updates
 func wpcli(x, y, z string) []string {
-	c := capture("wp", x, y, z, "--fields=name,version,update_version", "--format=csv", "--ssh="+user+":"+blog, "--url="+site, "--skip-plugins", "--skip-themes")
+	c := capture("wp", x, y, z, "--fields=name,version,update_version", "--format=csv", "--ssh="+environment["user"]+":"+environment["blog"], "--url="+environment["site"], "--skip-plugins", "--skip-themes")
 	f := strings.ReplaceAll(string(c), "\n", ",")
 	r := strings.Split(f, ",")
 	return r
@@ -68,6 +66,7 @@ func alphabetize(list string) string {
 	return t
 }
 
+// Catch any PHP errors which could interupt the program
 func gotcha(output []string) {
 	for i := range output {
 		if strings.Contains(output[i], "Notice:") {

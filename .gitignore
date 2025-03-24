@@ -11,11 +11,8 @@
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
-# Individual files
-vars.go
-
 # Dependency directories
-bin/
+assets/
 test/
 vendor/
 
@@ -33,3 +30,4 @@ go.work.sum
 # env file
 .env
 .env.example
+env.json
