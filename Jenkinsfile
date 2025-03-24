@@ -12,16 +12,20 @@ pipeline {
         cron "H 8 * * 3"
     }
     stages {
-        stage("Sync") {
+        stage("Pull Changes") {
             steps {
                 lock("satis-rebuild-resource") {
                     dir("/data/automation/github/platypus") {
-                        sh "git pull"
+                        sh '''#!/bin/bash
+                        source ~/.bashrc
+                        git fetch --all
+                        git pull
+                        '''
                     }
                 }
             }
         }
-        stage("Build") {
+        stage("Build Platypus") {
             steps {
                 lock("satis-rebuild-resource") {
                     dir("/data/automation/github/platypus") {
@@ -30,7 +34,7 @@ pipeline {
                 }
             }
         }
-        stage("Run") {
+        stage("Run Platypus") {
             steps {
                 lock("satis-rebuild-resource") {
                     timeout(time: 5, unit: "MINUTES") {
