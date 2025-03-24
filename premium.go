@@ -7,11 +7,11 @@ import (
 )
 
 const (
-	assets        string = "/data/automation/assets/"
+	base          string = "/data/automation/"
 	tickets       string = "https://theeventscalendar.com/category/release-notes/"
 	poly          string = "https://polylang.pro/downloads/polylang-pro/?changelog=1"
 	wpexport      string = "https://www.wpallimport.com/downloads/wp-all-export-pro/?changelog=1"
-	web, tmp, grp string = assets + "temp/webscrape.txt", assets + "temp/temp.json", assets + "temp/grepped.txt"
+	web, tmp, grp string = base + "temp/webscrape.txt", base + "temp/temp.json", base + "temp/grepped.txt"
 )
 
 // Run the functions to gather premium plugin versions currently installed and available

@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"slices"
 	"sort"
 	"strings"
 )
@@ -15,7 +16,7 @@ func plugin() {
 		premix := packagist(ups) + assemble()
 		body := alphabetize(premix)
 		if len(body) > 0 {
-			err := os.WriteFile(assets+"updates/updates.txt", []byte(body), 0666)
+			err := os.WriteFile(base+"assets/updates.txt", []byte(body), 0666)
 			inspect(err)
 			mailman(body)
 		} else {
@@ -40,7 +41,7 @@ func packagist(r []string) string {
 	var value string
 
 	for a := 1; a < 4; a++ {
-		r = append(r[:0], r[0+1:]...)
+		r = slices.Delete(r, 0, 0+1)
 	}
 
 	for i := 0; i < len(r)-1; i++ {
@@ -68,7 +69,7 @@ func alphabetize(list string) string {
 }
 
 func gotcha(output []string) {
-	for i := 0; i < len(output); i++ {
+	for i := range output {
 		if strings.Contains(output[i], "Notice:") {
 			alert("PHP Error on server interupting core functionality -")
 		}

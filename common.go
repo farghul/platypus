@@ -5,16 +5,12 @@ import (
 	"log"
 	"os"
 	"os/exec"
+	"slices"
 )
 
 // Test if the server value passed to the program is on the list
 func present() bool {
-	for _, v := range servers {
-		if v == server {
-			return true
-		}
-	}
-	return false
+	return slices.Contains(servers, server)
 }
 
 // Run a terminal command, then capture and return the output as a byte
