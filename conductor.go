@@ -15,7 +15,7 @@ func plugin() {
 	premix := packagist(ups) + assemble()
 	body := alphabetize(premix)
 	if len(body) > 0 {
-		err := os.WriteFile(base+"assets/updates.txt", []byte(body), 0666)
+		err := os.WriteFile(base+"resources/updates.txt", []byte(body), 0666)
 		inspect(err)
 		mailman(body)
 	} else {

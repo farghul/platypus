@@ -23,7 +23,7 @@ var (
 // Launch the program and execute according to the results of the switch statement
 func main() {
 
-	metadata := read(base + "assets/platypus.json")
+	metadata := read(base + "resources/platypus.json")
 	json.Unmarshal([]byte(metadata), &environment)
 
 	var flag string = flags()
