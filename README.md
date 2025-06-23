@@ -21,7 +21,7 @@ Creation of a `platypus.json` file with the following values as per your environ
 
 ``` json
 {
-    "blog": "Path on the server to the WordPress install",
+    "install": "Path on the server to the WordPress install",
     "recipient": "Email recipient(s) address(es)",
     "sender": "Email sender address",
     "server": "Server hosting WordPress",
@@ -36,6 +36,12 @@ Before building the application, change the value of the `base` constant to refl
 
 ``` go
 base string = "/data/automation/"
+```
+
+And the value of the `repo` constant to point to a location for the config json files:
+
+``` go
+repo string = base + "bitbucket/desso-automation-config/"
 ```
 
 Then, from the root folder containing `main.go`, use the command that matches your environment:
