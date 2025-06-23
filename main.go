@@ -18,13 +18,14 @@ const (
 
 var (
 	environment map[string]string
+	changelogs  map[string]string
 )
 
 // Launch the program and execute according to the results of the switch statement
 func main() {
 
-	metadata := read(base + "resources/platypus.json")
-	json.Unmarshal([]byte(metadata), &environment)
+	json.Unmarshal([]byte(read(repo+"atlassian/platypus.json")), &environment)
+	json.Unmarshal([]byte(read(repo+"atlassian/changelogs.json")), &changelogs)
 
 	var flag string = flags()
 

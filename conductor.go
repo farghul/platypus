@@ -16,7 +16,7 @@ func plugin() {
 	premix := packagist(ups) + assemble()
 	body := alphabetize(premix)
 	if len(body) > 0 {
-		err := os.WriteFile(base+"resources/updates.txt", []byte(body), 0666)
+		err := os.WriteFile(base+"lists/updates.txt", []byte(body), 0666)
 		inspect(err)
 		mailman(body)
 	} else {
@@ -29,7 +29,7 @@ func plugin() {
 
 // Run the wp command to check for updates
 func wpcli(x, y, z string) []string {
-	c := capture("wp", x, y, z, "--fields=name,version,update_version", "--format=csv", "--ssh="+environment["user"]+":"+environment["blog"], "--url="+environment["site"], "--skip-plugins", "--skip-themes")
+	c := capture("wp", x, y, z, "--fields=name,version,update_version", "--format=csv", "--ssh="+environment["user"]+":"+environment["install"], "--url="+environment["site"], "--skip-plugins", "--skip-themes")
 	f := strings.ReplaceAll(string(c), "\n", ",")
 	r := strings.Split(f, ",")
 	return r
