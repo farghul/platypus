@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 	"slices"
 	"sort"
@@ -19,7 +20,7 @@ func plugin() {
 		inspect(err)
 		mailman(body)
 	} else {
-		journal("No updates found for " + environment["site"])
+		fmt.Println("No updates found for " + environment["site"])
 	}
 	for _, v := range short {
 		cleanup(v)

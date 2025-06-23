@@ -29,7 +29,7 @@ pipeline {
             steps {
                 lock("satis-rebuild-resource") {
                     dir("/data/automation/github/platypus") {
-                        sh "/data/apps/go/bin/go build -o /data/automation/bin/platypus ."
+                        sh "/data/apps/go/bin/go build -o /data/automation/bin/platypus"
                     }
                 }
             }
@@ -39,7 +39,9 @@ pipeline {
                 lock("satis-rebuild-resource") {
                     timeout(time: 5, unit: "MINUTES") {
                         retry(2) {
-                            sh "/data/automation/scripts/platypus.sh"
+                            dir("/data/automation/bitbucket/desso-automation-conf/scripts/updates") {
+                                sh "./platypus.sh"
+                            }
                         }
                     }
                 }

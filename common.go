@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"log"
 	"os"
@@ -36,7 +37,7 @@ func mailman(list string) {
 
 	out, _ := cmd.CombinedOutput() // Necessary although valueless
 
-	journal("Updates found and email sent" + string(out))
+	fmt.Println(out)
 }
 
 // Pipe together commands using the exec.Command function
@@ -63,14 +64,6 @@ func read(file string) []byte {
 	inspect(err)
 	defer mission.Close()
 	return outcome
-}
-
-// Record a message to a log file
-func journal(message string) {
-	file, err := os.OpenFile("/data/automation/logs/platypus.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
-	inspect(err)
-	log.SetOutput(file)
-	log.Println(message)
 }
 
 // Remove files or directories

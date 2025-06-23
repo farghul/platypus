@@ -15,7 +15,7 @@ wpackagist-plugin/tablepress:2.0.1
 
 ## Prerequisite
 
-Googles' [Go language](https://go.dev) installed to enable building executables from source code.
+The [Go Programming Language](https://go.dev "Build simple, secure, scalable systems with Go") installed to enable building executables from source code.
 
 Creation of a `platypus.json` file with the following values as per your environment:
 
@@ -74,4 +74,4 @@ Example:
 
 ## License
 
-Code is distributed under [The Unlicense](https://github.com/farghul/platypus/blob/main/LICENSE.md) and is part of the Public Domain.
+Code is distributed under [The Unlicense](https://github.com/farghul/platypus/blob/main/LICENSE.md "Unlicense Yourself, Set Your Code Free") and is part of the Public Domain.
