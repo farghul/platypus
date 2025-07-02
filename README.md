@@ -41,7 +41,7 @@ base string = "/data/automation/"
 And the value of the `repo` constant to point to a location for the config json files:
 
 ``` go
-repo string = base + "bitbucket/desso-automation-config/"
+repo string = base + "bitbucket/desso-automation-conf/"
 ```
 
 Then, from the root folder containing `main.go`, use the command that matches your environment:

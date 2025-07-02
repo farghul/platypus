@@ -8,7 +8,7 @@ import (
 
 const (
 	base string = "/data/automation/"
-	repo string = base + "bitbucket/desso-automation-config/"
+	repo string = base + "bitbucket/desso-automation-conf/"
 	// Temp file locations
 	web, tmp, grp string = base + "temp/webscrape.txt", base + "temp/temp.json", base + "temp/grepped.txt"
 )
