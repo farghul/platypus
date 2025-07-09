@@ -36,8 +36,8 @@ func wpcore() string {
 func results(update, current, plugin string) string {
 	var status string
 	if update > current {
-		if plugin == "roots/wordpress" {
-			status = "roots/wordpress/" + plugin + ":" + update + "\n"
+		if plugin == "wordpress" {
+			status = "roots/" + plugin + ":" + update + "\n"
 		} else {
 			status = "premium-plugin/" + plugin + ":" + update + "\n"
 		}
