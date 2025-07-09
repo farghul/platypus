@@ -17,7 +17,7 @@ wpackagist-plugin/tablepress:2.0.1
 
 The [Go Programming Language](https://go.dev "Build simple, secure, scalable systems with Go") installed to enable building executables from source code.
 
-Creation of a `platypus.json` file with the following values as per your environment:
+Creation of a `test.json` file with the following values as per your environment:
 
 ``` json
 {
