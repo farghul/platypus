@@ -14,7 +14,7 @@ const (
 )
 
 // Run the functions to gather premium plugin versions currently installed and available
-func assemble() string {
+func subscription() string {
 	var exportInstalled = current("premium-plugin/wp-all-export-pro")
 	var ticketsInstalled = current("premium-plugin/event-tickets-plus")
 	var polylangInstalled = current("premium-plugin/polylang-pro")
@@ -25,11 +25,22 @@ func assemble() string {
 	return collect
 }
 
+func wpcore() string {
+	var coreInstalled = current("roots/wordpress")
+	var coreAvailable = latest(changelogs["core"], "h1")
+	collect := results(coreAvailable, coreInstalled, "wordpress")
+	return collect
+}
+
 // Compare the version numbers and print the results if an update is available
 func results(update, current, plugin string) string {
 	var status string
 	if update > current {
-		status = "premium-plugin/" + plugin + ":" + update + "\n"
+		if plugin == "roots/wordpress" {
+			status = "roots/wordpress/" + plugin + ":" + update + "\n"
+		} else {
+			status = "premium-plugin/" + plugin + ":" + update + "\n"
+		}
 	}
 	return status
 }
