@@ -27,7 +27,7 @@ func subscription() string {
 
 func wpcore() string {
 	var coreInstalled = current("roots/wordpress")
-	var coreAvailable = latest(changelogs["core"], "h1")
+	var coreAvailable = latest(changelogs["core"], "wp-block-wporg-release-version")
 	collect := results(coreAvailable, coreInstalled, "wordpress")
 	return collect
 }
