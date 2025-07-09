@@ -21,11 +21,11 @@ Creation of a `platypus.json` file with the following values as per your environ
 
 ``` json
 {
+    "address": "WordPress base url (no leading protocol)",
     "install": "Path on the server to the WordPress install",
     "recipient": "Email recipient(s) address(es)",
     "sender": "Email sender address",
     "server": "Server hosting WordPress",
-    "site": "WordPress base url (no leading protocol)",
     "user": "User authorized to run the program"
 }
 ```

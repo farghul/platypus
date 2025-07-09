@@ -25,13 +25,13 @@ func inspect(err error) {
 
 // Run the Linux mail command and email the result to the configured recipent(s)
 func mailman(list string) {
-	cmd := exec.Command("mail", "-s", "WordPress updates for "+environment["site"], "-r", "Delivery Cactuar <"+environment["sender"]+">", environment["recipient"])
+	cmd := exec.Command("mail", "-s", "WordPress updates for "+environment["address"], "-r", "Delivery Cactuar <"+environment["sender"]+">", environment["recipient"])
 	stdin, err := cmd.StdinPipe()
 	inspect(err)
 
 	go func() {
 		defer stdin.Close()
-		_, err := io.WriteString(stdin, "Below is the current list of plugins requiring updates for "+environment["site"]+". Have a magical day!\n\n"+list)
+		_, err := io.WriteString(stdin, "Below is the current list of plugins requiring updates for "+environment["address"]+". Have a magical day!\n\n"+list)
 		inspect(err)
 	}()
 

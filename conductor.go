@@ -20,7 +20,7 @@ func plugin() {
 		inspect(err)
 		mailman(body)
 	} else {
-		fmt.Println("No updates found for " + environment["site"])
+		fmt.Println("No updates found for " + environment["address"])
 	}
 	for _, v := range short {
 		cleanup(v)
@@ -29,7 +29,7 @@ func plugin() {
 
 // Run the wp command to check for updates
 func wpcli(x, y, z string) []string {
-	c := capture("wp", x, y, z, "--fields=name,version,update_version", "--format=csv", "--ssh="+environment["user"]+"@"+environment["server"]+":"+environment["install"], "--url="+environment["site"], "--skip-plugins", "--skip-themes")
+	c := capture("wp", x, y, z, "--fields=name,version,update_version", "--format=csv", "--ssh="+environment["user"]+"@"+environment["server"]+":"+environment["install"], "--url="+environment["address"], "--skip-plugins", "--skip-themes")
 	f := strings.ReplaceAll(string(c), "\n", ",")
 	r := strings.Split(f, ",")
 	return r
