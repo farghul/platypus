@@ -16,7 +16,7 @@ func plugin() {
 	premix := packagist(ups) + subscription() + wpcore()
 	body := alphabetize(premix)
 	if len(body) > 0 {
-		err := os.WriteFile(base+"lists/updates.txt", []byte(body), 0666)
+		err := os.WriteFile(base+"lists/updates.txt", []byte(body+"\n"), 0666)
 		inspect(err)
 		mailman(body)
 	} else {
