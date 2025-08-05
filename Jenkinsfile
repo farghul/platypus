@@ -37,6 +37,7 @@ pipeline {
                     git credentialsId: 'DES-Project', url: 'https://bitbucket.org/bc-gov/desso-automation-conf.git', branch: 'main'
                 }
             }
+        }
         stage('Run Platypus') {
             steps {
                 script {
