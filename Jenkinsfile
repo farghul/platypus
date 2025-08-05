@@ -17,37 +17,26 @@ pipeline {
                 cleanWs()
             }
         }
-        stage("Checkout Platypus") {
-            steps {
-                checkout([$class: 'GitSCM',
-                    branches: [[name: "main"]],
-                    doGenerateSubmoduleConfigurations: false,
-                    extensions: [[$class: 'RelativeTargetDirectory',
-                    relativeTargetDir: 'platypus']],
-                    submoduleCfg: [],
-                    userRemoteConfigs: [[url: 'https://github.com/farghul/platypus.git']]
-                ])
+        stage('Checkout Platypus'){
+            steps{
+                dir('/data/automation/temp/platypus'){
+                    git url: 'https://github.com/farghul/platypus.git' , branch: 'main'
+                }
             }
         }
-        stage("Build Platypus") {
+        stage('Build Platypus') {
             steps {
                 script {
-                    sh "/data/apps/go/bin/go build -o /data/automation/bin/platypus platypus/."
+                    sh "/data/apps/go/bin/go build -o /data/automation/bin/platypus"
                 }
             }
         }
         stage("Checkout DAC") {
-            steps {
-                checkout([$class: 'GitSCM',
-                    branches: [[name: "main"]],
-                    doGenerateSubmoduleConfigurations: false,
-                    extensions: [[$class: 'RelativeTargetDirectory',
-                    relativeTargetDir: 'desso']],
-                    submoduleCfg: [],
-                    userRemoteConfigs: [[credentialsId: 'DES-Project', url: 'https://bitbucket.org/bc-gov/desso-automation-conf.git']]
-                ])
+            steps{
+                dir('/data/automation/temp/dac'){
+                    git credentialsId: 'DES-Project', url: 'https://bitbucket.org/bc-gov/desso-automation-conf.git', branch: 'main'
+                }
             }
-        }
         stage('Run Platypus') {
             steps {
                 script {

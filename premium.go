@@ -7,10 +7,10 @@ import (
 )
 
 const (
-	base string = "/data/automation/"
-	repo string = base + "bitbucket/desso-automation-conf/"
+	base string = "/data/automation/temp/"
+	repo string = base + "platypus/"
 	// Temp file locations
-	web, tmp, grp string = base + "temp/webscrape.txt", base + "temp/temp.json", base + "temp/grepped.txt"
+	web, tmp, grp string = base + "webscrape.txt", base + "temp.json", base + "grepped.txt"
 )
 
 // Run the functions to gather premium plugin versions currently installed and available
