@@ -7,10 +7,10 @@ import (
 )
 
 const (
-	base string = "/data/automation/temp/"
-	repo string = base + "dac/"
+	base string = "/data/automation/"
 	// Temp file locations
-	web, tmp, grp string = base + "webscrape.txt", base + "temp.json", base + "grepped.txt"
+	temp, repo    string = base + "temp/", temp + "dac/"
+	web, tmp, grp string = temp + "webscrape.txt", temp + "temp.json", temp + "grepped.txt"
 )
 
 // Run the functions to gather premium plugin versions currently installed and available
