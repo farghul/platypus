@@ -21,6 +21,9 @@ Thumbs.db
 .idea
 .vscode
 
+# Folders
+/test
+
 # Go workspace file
 go.work
 go.work.sum

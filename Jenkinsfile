@@ -12,55 +12,39 @@ pipeline {
         cron "H 8 * * 3"
     }
     stages {
-        stage("Pull Config Changes") {
+        stage('Clean WS') {
             steps {
-                lock("satis-rebuild-resource") {
-                    dir("/data/automation/bitbucket/desso-automation-conf") {
-                        sh '''#!/bin/bash
-                        source ~/.bashrc
-                        git fetch --all
-                        git switch main
-                        git pull
-                        '''
-                    }
-                }
+                cleanWs()
             }
         }
-        stage("Pull Program Changes") {
+        stage("Checkout Platypus") {
             steps {
-                lock("satis-rebuild-resource") {
-                    dir("/data/automation/github/platypus") {
-                        sh '''#!/bin/bash
-                        source ~/.bashrc
-                        git fetch --all
-                        git switch main
-                        git pull
-                        '''
-                    }
-                }
+                checkout scmGit(
+                    branches: [[name: 'main']],
+                    userRemoteConfigs: [[url: 'https://github.com/farghul/platypus.git']]
+                )
             }
         }
         stage("Build Platypus") {
             steps {
-                lock("satis-rebuild-resource") {
-                    dir("/data/automation/github/platypus") {
-                        sh "/data/apps/go/bin/go build -o /data/automation/bin/platypus"
-                    }
+                script {
+                    sh "/data/apps/go/bin/go build -o /data/automation/bin/platypus"
                 }
             }
         }
-        stage("Run Platypus") {
+        stage("Checkout DAC") {
             steps {
-                lock("satis-rebuild-resource") {
-                    timeout(time: 5, unit: "MINUTES") {
-                        retry(2) {
-                            dir("/data/automation/bitbucket/desso-automation-conf/scripts/plugin") {
-                                sh "./platypus.sh"
-                            }
-                        }
-                    }
+                checkout scmGit(
+                    branches: [[name: 'main']],
+                    userRemoteConfigs: [[url: 'https://bitbucket.org/bc-gov/desso-automation-conf.git']]
+                )
+            }
+        }
+        stage('Read Script') {
+            steps {
+                script {
+                    sh './scripts/plugin/platypus.sh'
                 }
             }
         }
     }
-}
