@@ -8,7 +8,7 @@ import (
 
 const (
 	base string = "/data/automation/temp/"
-	repo string = base + "platypus/"
+	repo string = base + "dac/"
 	// Temp file locations
 	web, tmp, grp string = base + "webscrape.txt", base + "temp.json", base + "grepped.txt"
 )
