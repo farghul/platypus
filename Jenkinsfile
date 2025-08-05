@@ -40,7 +40,7 @@ pipeline {
                 )
             }
         }
-        stage('Read Script') {
+        stage('Run Platypus') {
             steps {
                 script {
                     sh './scripts/plugin/platypus.sh'
