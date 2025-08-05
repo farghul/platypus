@@ -36,7 +36,7 @@ pipeline {
             steps {
                 checkout scmGit(
                     branches: [[name: 'main']],
-                    userRemoteConfigs: [[url: 'https://bitbucket.org/bc-gov/desso-automation-conf.git']]
+                    userRemoteConfigs: [[credentialsId: 'DES-Project', url: 'https://bitbucket.org/bc-gov/desso-automation-conf.git']]
                 )
             }
         }
