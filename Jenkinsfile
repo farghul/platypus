@@ -26,8 +26,10 @@ pipeline {
         }
         stage('Build Platypus') {
             steps {
-                script {
-                    sh "/data/apps/go/bin/go build -o /data/automation/bin/platypus"
+                dir('/data/automation/temp/platypus'){
+                    script {
+                        sh "/data/apps/go/bin/go build -o /data/automation/bin/platypus"
+                    }
                 }
             }
         }
@@ -40,8 +42,10 @@ pipeline {
         }
         stage('Run Platypus') {
             steps {
-                script {
-                    sh './scripts/plugin/platypus.sh'
+                dir('/data/automation/temp/dac'){
+                    script {
+                        sh './scripts/plugin/platypus.sh'
+                    }
                 }
             }
         }
