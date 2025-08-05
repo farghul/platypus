@@ -19,10 +19,14 @@ pipeline {
         }
         stage("Checkout Platypus") {
             steps {
-                checkout scmGit(
-                    branches: [[name: 'main']],
+                checkout([$class: 'GitSCM',
+                    branches: [[name: "main"]],
+                    doGenerateSubmoduleConfigurations: false,
+                    extensions: [[$class: 'RelativeTargetDirectory',
+                    relativeTargetDir: 'platypus']],
+                    submoduleCfg: [],
                     userRemoteConfigs: [[url: 'https://github.com/farghul/platypus.git']]
-                )
+                ])
             }
         }
         stage("Build Platypus") {
@@ -34,10 +38,14 @@ pipeline {
         }
         stage("Checkout DAC") {
             steps {
-                checkout scmGit(
-                    branches: [[name: 'main']],
+                checkout([$class: 'GitSCM',
+                    branches: [[name: "main"]],
+                    doGenerateSubmoduleConfigurations: false,
+                    extensions: [[$class: 'RelativeTargetDirectory',
+                    relativeTargetDir: 'desso']],
+                    submoduleCfg: [],
                     userRemoteConfigs: [[credentialsId: 'DES-Project', url: 'https://bitbucket.org/bc-gov/desso-automation-conf.git']]
-                )
+                ])
             }
         }
         stage('Run Platypus') {
