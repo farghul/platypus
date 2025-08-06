@@ -12,41 +12,55 @@ pipeline {
         cron "H 8 * * 3"
     }
     stages {
-        stage('Clean WS') {
+        stage("Empty_Folder") {
             steps {
-                cleanWs()
+                dir('/data/automation/checkouts'){
+                    script {
+                        deleteDir()
+                    }
+                }
             }
         }
-        stage('Checkout Platypus'){
+        stage('Checkout_Platypus'){
             steps{
-                dir('/data/automation/temp/platypus'){
+                dir('/data/automation/checkouts/platypus'){
                     git url: 'https://github.com/farghul/platypus.git' , branch: 'main'
                 }
             }
         }
-        stage('Build Platypus') {
+        stage('Build_Platypus') {
             steps {
-                dir('/data/automation/temp/platypus'){
+                dir('/data/automation/checkouts/platypus'){
                     script {
                         sh "/data/apps/go/bin/go build -o /data/automation/bin/platypus"
                     }
                 }
             }
         }
-        stage("Checkout DAC") {
+        stage("Checkout_DAC") {
             steps{
-                dir('/data/automation/temp/dac'){
+                dir('/data/automation/checkouts/dac'){
                     git credentialsId: 'DES-Project', url: 'https://bitbucket.org/bc-gov/desso-automation-conf.git', branch: 'main'
                 }
             }
         }
-        stage('Run Platypus') {
+        stage('Run_Platypus') {
             steps {
-                dir('/data/automation/temp/dac'){
+                dir('/data/automation/checkouts/dac'){
                     script {
                         sh './scripts/plugin/platypus.sh'
                     }
                 }
+            }
+        }
+        post {
+            always {
+                cleanWs(cleanWhenNotBuilt: false,
+                    deleteDirs: true,
+                    disableDeferredWipeout: true,
+                    notFailBuild: true,
+                    patterns: [[pattern: '.gitignore', type: 'INCLUDE'], [pattern: '.propsfile', type: 'EXCLUDE']]
+                )
             }
         }
     }

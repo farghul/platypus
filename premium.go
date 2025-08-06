@@ -9,7 +9,7 @@ import (
 const (
 	base string = "/data/automation/"
 	// Temp file locations
-	temp, repo    string = base + "temp/", temp + "dac/"
+	temp, repo    string = base + "temp/", base + "checkouts/dac/"
 	web, tmp, grp string = temp + "webscrape.txt", temp + "temp.json", temp + "grepped.txt"
 )
 
