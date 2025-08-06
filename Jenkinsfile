@@ -46,22 +46,12 @@ pipeline {
         }
         stage('Run_Platypus') {
             steps {
-                dir('/data/automation/checkouts/dac'){
+                dir('/data/automation/checkouts/dac/scripts/plugin'){
                     script {
-                        sh './scripts/plugin/platypus.sh'
+                        sh 'platypus.sh'
                     }
                 }
             }
-        }
-    }
-    post {
-        always {
-            cleanWs(cleanWhenNotBuilt: false,
-                deleteDirs: true,
-                disableDeferredWipeout: true,
-                notFailBuild: true,
-                patterns: [[pattern: '.gitignore', type: 'INCLUDE'], [pattern: '.propsfile', type: 'EXCLUDE']]
-            )
         }
     }
 }
