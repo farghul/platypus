@@ -48,7 +48,7 @@ pipeline {
             steps {
                 dir('/data/automation/checkouts/dac/scripts/plugin'){
                     script {
-                        sh 'platypus.sh'
+                        sh './platypus.sh'
                     }
                 }
             }
