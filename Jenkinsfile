@@ -14,23 +14,23 @@ pipeline {
     stages {
         stage("Empty_Folder") {
             steps {
-                dir('/data/automation/checkouts'){
+                dir("/data/automation/checkouts"){
                     script {
                         deleteDir()
                     }
                 }
             }
         }
-        stage('Checkout_Platypus'){
+        stage("Checkout_Platypus"){
             steps{
-                dir('/data/automation/checkouts/platypus'){
-                    git url: 'https://github.com/farghul/platypus.git' , branch: 'main'
+                dir("/data/automation/checkouts/platypus"){
+                    git url: "https://github.com/farghul/platypus.git" , branch: "main"
                 }
             }
         }
-        stage('Build_Platypus') {
+        stage("Build_Platypus") {
             steps {
-                dir('/data/automation/checkouts/platypus'){
+                dir("/data/automation/checkouts/platypus"){
                     script {
                         sh "/data/apps/go/bin/go build -o /data/automation/bin/platypus"
                     }
@@ -39,16 +39,16 @@ pipeline {
         }
         stage("Checkout_DAC") {
             steps{
-                dir('/data/automation/checkouts/dac'){
-                    git credentialsId: 'DES-Project', url: 'https://bitbucket.org/bc-gov/desso-automation-conf.git', branch: 'main'
+                dir("/data/automation/checkouts/dac"){
+                    git credentialsId: "DES-Project", url: "https://bitbucket.org/bc-gov/desso-automation-conf.git", branch: "main"
                 }
             }
         }
-        stage('Run_Platypus') {
+        stage("Run_Platypus") {
             steps {
-                dir('/data/automation/checkouts/dac/scripts/plugin'){
+                dir("/data/automation/checkouts/dac/scripts/plugin"){
                     script {
-                        sh './platypus.sh'
+                        sh "./platypus.sh"
                     }
                 }
             }
