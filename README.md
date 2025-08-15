@@ -4,7 +4,7 @@ Platypus is a WordPress plugin update search tool. It runs the standard `wp plug
 
 ![Platypus](platypus.webp)
 
-``` console
+``` zsh
 Below is the current list of plugins requiring updates for test.blog.ca
 
 wpackagist-plugin/gutenberg:14.8.2
@@ -13,7 +13,7 @@ wpackagist-plugin/styles-and-layouts-for-gravity-forms:4.3.10
 wpackagist-plugin/tablepress:2.0.1
 ```
 
-## Prerequisite
+## 📚 Prerequisite
 
 The [Go Programming Language](https://go.dev "Build simple, secure, scalable systems with Go") installed to enable building executables from source code.
 
@@ -30,7 +30,7 @@ Creation of a `test.json` file with the following values as per your environment
 }
 ```
 
-## Build
+## 🚧 Build
 
 Before building the application, change the value of the `base` constant to reflect your environment:
 
@@ -48,36 +48,30 @@ Then, from the root folder containing `main.go`, use the command that matches yo
 
 ### Windows & Mac:
 
-``` console
+``` zsh
 go build -o [name] .
 ```
 
 ### Linux:
 
-``` console
+``` zsh
 GOOS=linux GOARCH=amd64 go build -o [name] .
 ```
 
-## Options
+## 🏃 Run
 
-``` console
--h, --help       Help Information
--r, --run        Run Program
--v, --version    Display App Version
-```
-
-## Run
-
-``` console
-./[program] [flag]
-```
-
-Example:
-
-``` console
+``` zsh
 ./platypus -r
 ```
 
-## License
+## 🎏 Available Flags
+
+| Command               | Action                      |
+|:----------------------|:----------------------------|
+|    `-h, --help`       |   Help information          |
+|    `-r, --run`        |   Run program               |
+|    `-v, --version`    |   Display program version   |
+
+## 🎫 License
 
 Code is distributed under [The Unlicense](https://github.com/farghul/platypus/blob/main/LICENSE.md "Unlicense Yourself, Set Your Code Free") and is part of the Public Domain.
