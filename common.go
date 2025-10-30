@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"io"
 	"log"
 	"os"
@@ -34,10 +33,6 @@ func mailman(list string) {
 		_, err := io.WriteString(stdin, "Below is the current list of plugins requiring updates for "+environment["address"]+". Have a magical day!\n\n"+list)
 		inspect(err)
 	}()
-
-	out, _ := cmd.CombinedOutput() // Necessary although valueless
-
-	fmt.Println(out)
 }
 
 // Pipe together commands using the exec.Command function

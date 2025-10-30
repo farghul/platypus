@@ -21,7 +21,7 @@ pipeline {
                 }
             }
         }
-        stage("Checkout"){
+        stage("Checkouts"){
             steps{
                 dir("/data/automation/checkouts/platypus"){
                     git url: "https://github.com/farghul/platypus.git", branch: "main"
