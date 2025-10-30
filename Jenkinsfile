@@ -12,7 +12,7 @@ pipeline {
         cron "H 8 * * 3"
     }
     stages {
-        stage("Empty_Folder") {
+        stage("Clear") {
             steps {
                 dir("/data/automation/checkouts"){
                     script {
@@ -21,14 +21,14 @@ pipeline {
                 }
             }
         }
-        stage("Checkout_Platypus"){
+        stage("Checkout"){
             steps{
                 dir("/data/automation/checkouts/platypus"){
-                    git url: "https://github.com/farghul/platypus.git" , branch: "main"
+                    git url: "https://github.com/farghul/platypus.git", branch: "main"
                 }
             }
         }
-        stage("Build_Platypus") {
+        stage("Build") {
             steps {
                 dir("/data/automation/checkouts/platypus"){
                     script {
@@ -37,18 +37,11 @@ pipeline {
                 }
             }
         }
-        stage("Checkout_DAC") {
-            steps{
-                dir("/data/automation/checkouts/dac"){
-                    git credentialsId: "DES-Project", url: "https://bitbucket.org/bc-gov/desso-automation-conf.git", branch: "main"
-                }
-            }
-        }
-        stage("Run_Platypus") {
+        stage("Run") {
             steps {
-                dir("/data/automation/checkouts/dac/scripts/plugin"){
+                dir("/data/automation/checkouts/platypus"){
                     script {
-                        sh "./platypus.sh"
+                        sh "/data/automation/bin/platypus -r"
                     }
                 }
             }
