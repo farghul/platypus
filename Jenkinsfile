@@ -42,8 +42,10 @@ pipeline {
         }
         stage("Run") {
             steps {
-                script {
-                    sh "/data/automation/bin/platypus -r"
+                dir("/data/automation/checkouts/dac/scripts/plugin"){
+                    script {
+                        sh "./platypus.sh"
+                    }
                 }
             }
         }
