@@ -32,7 +32,7 @@ pipeline {
             steps {
                 dir("/data/automation/checkouts/platypus"){
                     script {
-                        sh "go build -o /data/automation/bin/platypus"
+                        sh "/data/apps/go/bin/go build -o /data/automation/bin/platypus"
                     }
                 }
             }
