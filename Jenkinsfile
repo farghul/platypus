@@ -21,10 +21,13 @@ pipeline {
                 }
             }
         }
-        stage("Checkout"){
+        stage("Checkouts"){
             steps{
                 dir("/data/automation/checkouts/platypus"){
                     git url: "https://github.com/farghul/platypus.git", branch: "main"
+                }
+                dir("/data/automation/checkouts/dac"){
+                    git credentialsId: "DES-Project", url: "https://bitbucket.org/bc-gov/desso-automation-conf.git", branch: "main"
                 }
             }
         }
