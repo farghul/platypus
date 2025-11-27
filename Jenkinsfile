@@ -2,9 +2,9 @@ pipeline {
     agent { label "cactuar && deploy" }
     options {
         buildDiscarder logRotator(
-            artifactDaysToKeepStr: "28",
-            artifactNumToKeepStr: "5",
-            daysToKeepStr: "56",
+            artifactDaysToKeepStr: "",
+            artifactNumToKeepStr: "10",
+            daysToKeepStr: "",
             numToKeepStr: "10"
         )
     }
@@ -21,13 +21,10 @@ pipeline {
                 }
             }
         }
-        stage("Checkouts"){
+        stage("Checkout"){
             steps{
                 dir("/data/automation/checkouts/platypus"){
                     git url: "https://github.com/farghul/platypus.git", branch: "main"
-                }
-                dir("/data/automation/checkouts/dac"){
-                    git credentialsId: "DES-Project", url: "https://bitbucket.org/bc-gov/desso-automation-conf.git", branch: "main"
                 }
             }
         }
@@ -42,7 +39,7 @@ pipeline {
         }
         stage("Run") {
             steps {
-                dir("/data/automation/checkouts/dac/scripts/plugin"){
+                dir("/data/automation/checkouts/platypus"){
                     script {
                         sh "./platypus.sh"
                     }
