@@ -35,7 +35,7 @@ pipeline {
             steps {
                 dir("/data/automation/checkouts/platypus"){
                     script {
-                        sh "/data/apps/go/bin/go build -o /data/automation/bin/platypus"
+                        sh "/data/go/bin/go build -buildvcs=false -o /data/automation/bin/platypus"
                     }
                 }
             }
