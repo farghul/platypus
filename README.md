@@ -7,10 +7,11 @@ Platypus is a WordPress plugin update search tool. It runs the standard `wp plug
 ``` zsh
 Below is the current list of plugins requiring updates for test.blog.ca
 
-wpackagist-plugin/gutenberg:14.8.2
-wpackagist-plugin/stackable-ultimate-gutenberg-blocks:3.6.3
-wpackagist-plugin/styles-and-layouts-for-gravity-forms:4.3.10
-wpackagist-plugin/tablepress:2.0.1
+wpackagist-plugin/gutenberg:22.9.0
+wpackagist-plugin/tablepress:3.3
+wpackagist-plugin/visualizer:4.0.1
+wpackagist-plugin/woosidebars:1.4.6
+wpackagist-theme/twentytwentyfive:1.4
 ```
 
 ## 📚 Prerequisite
@@ -24,24 +25,18 @@ Creation of a `test.json` file with the following values as per your environment
     "address": "WordPress base url (no leading protocol)",
     "install": "Path on the server to the WordPress install",
     "recipient": "Email recipient(s) address(es)",
-    "sender": "Email sender address",
-    "server": "Server hosting WordPress",
+    "sender": "Address of Email sender ",
+    "server": "Name of WordPress hosting server",
     "user": "User authorized to run the program"
 }
 ```
 
 ## 🚧 Build
 
-Before building the application, change the value of the `base` constant to reflect your environment:
+Before building the application, change the value of the `base` `temp`, and `jsons` constants to reflect your environment:
 
 ``` go
-base string = "/data/automation/"
-```
-
-And the value of the `repo` constant to point to a location for the config json files:
-
-``` go
-repo string = base + "checkouts/dac/"
+base, temp, jsons string = "/data/automation/", base + "temp/", base + "jsons/"
 ```
 
 Then, from the root folder containing `main.go`, use the command that matches your environment:

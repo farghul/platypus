@@ -24,8 +24,8 @@ var (
 // Launch the program and execute according to the results of the switch statement
 func main() {
 
-	json.Unmarshal([]byte(read(repo+"jsons/test.json")), &environment)
-	json.Unmarshal([]byte(read(repo+"jsons/changelogs.json")), &changelogs)
+	json.Unmarshal([]byte(read(jsons+"test.json")), &environment)
+	json.Unmarshal([]byte(read(jsons+"changelogs.json")), &changelogs)
 
 	var flag string = flags()
 

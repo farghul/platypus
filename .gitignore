@@ -28,11 +28,9 @@ Thumbs.db
 .bundle/
 .yardoc/
 _yardoc/
-beta/
 bin/
-doc/
 local/
-rdoc/
+scripts/
 temp/
 
 # Exclude environment files
