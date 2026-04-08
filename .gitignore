@@ -29,6 +29,7 @@ Thumbs.db
 .yardoc/
 _yardoc/
 beta/
+bin/
 doc/
 local/
 rdoc/

@@ -1,5 +1,5 @@
 pipeline {
-    agent { label "torrid && deploy" }
+    agent { label "cactuar && deploy" }
     options {
         buildDiscarder logRotator(
             artifactDaysToKeepStr: "",
