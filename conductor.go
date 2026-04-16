@@ -29,6 +29,7 @@ func plugin() {
 
 // Run the wp command to check for updates
 func wpcli(x, y, z string) []string {
+	os.Chdir(environment["install"])
 	c := capture("wp", x, y, z, "--fields=name,version,update_version", "--format=csv", "--ssh="+environment["user"]+"@"+environment["server"]+":"+environment["install"], "--url="+environment["address"], "--skip-plugins", "--skip-themes")
 	f := strings.ReplaceAll(string(c), "\n", ",")
 	r := strings.Split(f, ",")
@@ -37,7 +38,7 @@ func wpcli(x, y, z string) []string {
 
 // Format the output of plugin updates
 func packagist(r []string) string {
-	var value string
+	var value strings.Builder
 
 	for a := 1; a < 4; a++ {
 		r = slices.Delete(r, 0, 0+1)
@@ -46,17 +47,17 @@ func packagist(r []string) string {
 	for i := 0; i < len(r)-1; i++ {
 		switch r[i] {
 		case "events-virtual":
-			value += "premium-plugin/" + r[i] + ":" + r[i+2] + "\n"
+			value.WriteString("premium-plugin/" + r[i] + ":" + r[i+2] + "\n")
 		case "events-calendar-pro":
-			value += "premium-plugin/" + r[i] + ":" + r[i+2] + "\n"
+			value.WriteString("premium-plugin/" + r[i] + ":" + r[i+2] + "\n")
 		case "gravityforms":
-			value += "premium-plugin/" + r[i] + ":" + r[i+2] + "\n"
+			value.WriteString("premium-plugin/" + r[i] + ":" + r[i+2] + "\n")
 		default:
-			value += "wpackagist-plugin/" + r[i] + ":" + r[i+2] + "\n"
+			value.WriteString("wpackagist-plugin/" + r[i] + ":" + r[i+2] + "\n")
 		}
 		i += 2
 	}
-	return strings.TrimRight(value, " ")
+	return strings.TrimRight(value.String(), " ")
 }
 
 // Alphabetize the update list before emailing it
