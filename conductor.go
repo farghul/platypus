@@ -29,8 +29,8 @@ func plugin() {
 
 // Run the wp command to check for updates
 func wpcli(x, y, z string) []string {
-	c := capture("/data/opt/bin/wp", x, y, z, "--fields=name,version,update_version", "--format=csv", "--path="+environment["install"], "--url="+environment["address"], "--skip-plugins", "--skip-themes")
-	// c := capture("wp", x, y, z, "--fields=name,version,update_version", "--format=csv", "--ssh="+environment["user"]+"@"+environment["server"]+":"+environment["install"], "--url="+environment["address"], "--skip-plugins", "--skip-themes")
+	// c := capture("/data/opt/bin/wp", x, y, z, "--fields=name,version,update_version", "--format=csv", "--path="+environment["install"], "--url="+environment["address"], "--skip-plugins", "--skip-themes")
+	c := capture("wp", x, y, z, "--fields=name,version,update_version", "--format=csv", "--ssh="+environment["user"]+"@"+environment["server"]+":"+environment["install"], "--url="+environment["address"], "--skip-plugins", "--skip-themes")
 	f := strings.ReplaceAll(string(c), "\n", ",")
 	r := strings.Split(f, ",")
 	return r
