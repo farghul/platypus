@@ -6,26 +6,11 @@ import (
 	"os"
 )
 
-const (
-	bv       string = "1.0.0"
-	reset    string = "\033[0m"
-	bgred    string = "\033[41m"
-	green    string = "\033[32m"
-	yellow   string = "\033[33m"
-	bgyellow string = "\033[43m"
-	halt     string = "program halted"
-)
-
-var (
-	environment map[string]string
-	changelogs  map[string]string
-)
-
 // Launch the program and execute according to the results of the switch statement
 func main() {
 
-	json.Unmarshal([]byte(read(jsons+"test.json")), &environment)
-	json.Unmarshal([]byte(read(jsons+"changelogs.json")), &changelogs)
+	json.Unmarshal([]byte(read(meta+"test.json")), &environment)
+	json.Unmarshal([]byte(read(meta+"changelogs.json")), &changelogs)
 
 	var flag string = flags()
 

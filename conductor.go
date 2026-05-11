@@ -10,27 +10,25 @@ import (
 
 // Trigger the search for updates
 func plugin() {
-	short := []string{tmp, grp, web}
 	ups := wpcli("plugin", "list", "--update=available")
 	gotcha(ups)
 	premix := packagist(ups) + subscription() + wpcore()
 	body := alphabetize(premix)
 	if len(body) > 0 {
-		err := os.WriteFile(base+"lists/updates.txt", []byte(body+"\n"), 0666)
+		err := os.WriteFile("/data/automation/lists/updates.txt", []byte(body+"\n"), 0666)
 		inspect(err)
 		mailman(body)
 	} else {
-		fmt.Println("No updates found for " + environment["address"])
+		fmt.Println("No updates found for " + environment.Address)
 	}
-	for _, v := range short {
+	for _, v := range remains {
 		cleanup(v)
 	}
 }
 
 // Run the wp command to check for updates
 func wpcli(x, y, z string) []string {
-	// c := capture("/data/opt/bin/wp", x, y, z, "--fields=name,version,update_version", "--format=csv", "--path="+environment["install"], "--url="+environment["address"], "--skip-plugins", "--skip-themes")
-	c := capture("wp", x, y, z, "--fields=name,version,update_version", "--format=csv", "--ssh="+environment["user"]+"@"+environment["server"]+":"+environment["install"], "--url="+environment["address"], "--skip-plugins", "--skip-themes")
+	c, _ := capture("wp", x, y, z, "--fields=name,version,update_version", "--format=csv", "--ssh="+environment.User+"@"+environment.Server+":"+environment.Install, "--url="+environment.Address, "--skip-plugins", "--skip-themes")
 	f := strings.ReplaceAll(string(c), "\n", ",")
 	r := strings.Split(f, ",")
 	return r

@@ -7,12 +7,8 @@ import (
 	"os/exec"
 )
 
-// Run a terminal command, then capture and return the output as a byte
-func capture(task string, args ...string) []byte {
-	lpath, err := exec.LookPath(task)
-	inspect(err)
-	osCmd, _ := exec.Command(lpath, args...).CombinedOutput()
-	return osCmd
+func capture(task string, args ...string) ([]byte, error) {
+	return exec.Command(task, args...).CombinedOutput()
 }
 
 // Check for errors, halt the program if found, and log the result
@@ -24,13 +20,13 @@ func inspect(err error) {
 
 // Run the Linux mail command and email the result to the configured recipent(s)
 func mailman(list string) {
-	cmd := exec.Command("mail", "-s", "WordPress updates for "+environment["address"], "-r", "Delivery Cactuar <"+environment["sender"]+">", environment["recipient"])
+	cmd := exec.Command("mail", "-s", "WordPress updates for "+environment.Address, "-r", "Delivery Cactuar <"+environment.Sender+">", environment.Recipient)
 	stdin, err := cmd.StdinPipe()
 	inspect(err)
 
 	go func() {
 		defer stdin.Close()
-		_, err := io.WriteString(stdin, "Below is the current list of plugins requiring updates for "+environment["address"]+". Have a magical day!\n\n"+list)
+		_, err := io.WriteString(stdin, "Below is the current list of plugins requiring updates for "+environment.Address+". Have a magical day!\n\n"+list)
 		inspect(err)
 	}()
 

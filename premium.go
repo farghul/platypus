@@ -6,26 +6,21 @@ import (
 	"strings"
 )
 
-const (
-	base, temp, jsons string = "/data/automation/", base + "temp/", base + "jsons/"
-	web, tmp, grp     string = temp + "webscrape.txt", temp + "temp.json", temp + "grepped.txt"
-)
-
 // Run the functions to gather premium plugin versions currently installed and available
 func subscription() string {
 	var exportInstalled = current("premium-plugin/wp-all-export-pro")
 	var ticketsInstalled = current("premium-plugin/event-tickets-plus")
 	var polylangInstalled = current("premium-plugin/polylang-pro")
-	var exportAvailable = latest(changelogs["wpexport"], "h4")
-	var ticketsAvailable = latest(changelogs["tickets"], "Event Tickets Plus")
-	var polylangAvailable = latest(changelogs["poly"], "h4")
+	var exportAvailable = latest(changelogs.WPExport, "h4")
+	var ticketsAvailable = latest(changelogs.Tickets, "Event Tickets Plus")
+	var polylangAvailable = latest(changelogs.Poly, "h4")
 	collect := results(ticketsAvailable, ticketsInstalled, "event-tickets-plus") + results(polylangAvailable, polylangInstalled, "polylang-pro") + results(exportAvailable, exportInstalled, "wp-all-export-pro")
 	return collect
 }
 
 func wpcore() string {
 	var coreInstalled = current("roots/wordpress")
-	var coreAvailable = latest(changelogs["core"], "wp-block-wporg-release-version")
+	var coreAvailable = latest(changelogs.WordPress, "wp-block-wporg-release-version")
 	collect := results(coreAvailable, coreInstalled, "wordpress")
 	return collect
 }
@@ -45,19 +40,19 @@ func results(update, current, plugin string) string {
 
 // Find the current versions of our premium plugins from the composer.json file
 func current(p string) string {
-	where := strings.TrimSuffix(environment["install"], "web/wp") + "composer.json"
-	what := concat("ssh", "-T", environment["user"]+"@"+environment["server"], " cat "+where)
-	inspect(os.WriteFile(tmp, what, 0666))
-	grep := capture("grep", p, tmp)
+	where := strings.TrimSuffix(environment.Install, "web/wp") + "composer.json"
+	what := concat("ssh", "-T", environment.User+"@"+environment.Server, " cat "+where)
+	inspect(os.WriteFile(remains[1], what, 0666))
+	grep, _ := capture("grep", p, remains[1])
 	return regmatch(strings.TrimSpace(string(grep)))
 }
 
 // Find the latest versions of our premium plugins from the applicable websites
 func latest(u, g string) string {
-	capture("curl", "-s", u, "-o", web)
-	grep := capture("grep", g, web)
-	inspect(os.WriteFile(grp, grep, 0666))
-	head := capture("head", "-n 1", grp)
+	capture("curl", "-s", u, "-o", remains[2])
+	grep, _ := capture("grep", g, remains[2])
+	inspect(os.WriteFile(remains[0], grep, 0666))
+	head, _ := capture("head", "-n 1", remains[0])
 	return regmatch(strings.TrimSpace(string(head)))
 }
 
