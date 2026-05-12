@@ -3,10 +3,17 @@ package main
 import (
 	"io"
 	"log"
+	"net/http"
 	"os"
 	"os/exec"
 )
 
+// Remove files or directories
+func cleanup(cut string) {
+	inspect(os.Remove(cut))
+}
+
+// Run a terminal command, then capture and return the output as a byte
 func capture(task string, args ...string) ([]byte, error) {
 	return exec.Command(task, args...).CombinedOutput()
 }
@@ -18,8 +25,20 @@ func inspect(err error) {
 	}
 }
 
+// A generic GET request which captures the response
+func get(target string) []byte {
+	resp, err := http.Get(target)
+	inspect(err)
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	inspect(err)
+
+	return body
+}
+
 // Run the Linux mail command and email the result to the configured recipent(s)
-func mailman(list string) {
+func mailing(list string) {
 	cmd := exec.Command("mail", "-s", "WordPress updates for "+environment.Address, "-r", "Delivery Cactuar <"+environment.Sender+">", environment.Recipient)
 	stdin, err := cmd.StdinPipe()
 	inspect(err)
@@ -49,19 +68,4 @@ func concat(method, flag, task, pipe string) []byte {
 
 	out, _ := cmd.CombinedOutput()
 	return out
-}
-
-// Read any file and return the contents as a byte variable
-func read(file string) []byte {
-	mission, err := os.Open(file)
-	inspect(err)
-	outcome, err := io.ReadAll(mission)
-	inspect(err)
-	defer mission.Close()
-	return outcome
-}
-
-// Remove files or directories
-func cleanup(cut string) {
-	inspect(os.Remove(cut))
 }

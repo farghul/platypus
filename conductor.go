@@ -1,12 +1,30 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"log"
 	"os"
 	"slices"
 	"sort"
 	"strings"
 )
+
+// Read the JSON files and Unmarshal the data into the appropriate Go structure
+func serialize() {
+	for index, element := range jsons {
+		data, err := os.ReadFile(element)
+		inspect(err)
+		switch index {
+		case 0:
+			err := json.Unmarshal(data, &changelogs)
+			inspect(err)
+		case 1:
+			err := json.Unmarshal(data, &environment)
+			inspect(err)
+		}
+	}
+}
 
 // Trigger the search for updates
 func plugin() {
@@ -17,13 +35,25 @@ func plugin() {
 	if len(body) > 0 {
 		err := os.WriteFile("/data/automation/lists/updates.txt", []byte(body+"\n"), 0666)
 		inspect(err)
-		mailman(body)
+		mailing(body)
 	} else {
 		fmt.Println("No updates found for " + environment.Address)
 	}
 	for _, v := range remains {
 		cleanup(v)
 	}
+}
+
+// Filter the JSON blob response to get the latest version
+func sift() string {
+	data := get("https://api.wordpress.org/core/version-check/1.7/")
+	err := json.Unmarshal(data, &version)
+	inspect(err)
+	if len(version.Offers) == 0 {
+		log.Fatal("no offers")
+	}
+	current := version.Offers[0].Current
+	return current
 }
 
 // Run the wp command to check for updates
@@ -44,10 +74,6 @@ func packagist(r []string) string {
 
 	for i := 0; i < len(r)-1; i++ {
 		switch r[i] {
-		case "events-virtual":
-			value.WriteString("premium-plugin/" + r[i] + ":" + r[i+2] + "\n")
-		case "events-calendar-pro":
-			value.WriteString("premium-plugin/" + r[i] + ":" + r[i+2] + "\n")
 		case "gravityforms":
 			value.WriteString("premium-plugin/" + r[i] + ":" + r[i+2] + "\n")
 		default:

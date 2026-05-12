@@ -1,21 +1,17 @@
 package main
 
-// Jira builds the Jira API address and update source
-type Jira struct {
-	Source string `json:"source"`
-	Token  string `json:"token"`
-	URL    string `json:"url"`
+type WPLatest struct {
+	Offers []struct {
+		Current string `json:"current"`
+	} `json:"offers"`
 }
 
 // Changelogs builds a collection of urls to target changelogs
 type Changelogs struct {
-	ACF       string `json:"acf"`
-	Calendar  string `json:"calendar"`
+	ACFPro    string `json:"acfpro"`
 	Gravity   string `json:"gravity"`
 	Poly      string `json:"poly"`
 	Spotlight string `json:"spotlight"`
-	Tickets   string `json:"tickets"`
-	Virtual   string `json:"virtual"`
 	WordPress string `json:"wordpress"`
 	WPExport  string `json:"wpexport"`
 }
@@ -42,7 +38,9 @@ const (
 )
 
 var (
+	version     WPLatest
 	changelogs  Changelogs
 	environment Environment
+	jsons       = []string{meta + "changelogs.json", meta + "test.json"}
 	remains     = []string{temp + "grepped.txt", temp + "temp.json", temp + "webscrape.txt"}
 )

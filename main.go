@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"os"
 )
@@ -9,15 +8,13 @@ import (
 // Launch the program and execute according to the results of the switch statement
 func main() {
 
-	json.Unmarshal([]byte(read(meta+"test.json")), &environment)
-	json.Unmarshal([]byte(read(meta+"changelogs.json")), &changelogs)
-
 	var flag string = flags()
 
 	switch flag {
 	case "-h", "--help":
 		help()
 	case "-r", "--run":
+		serialize()
 		plugin()
 	case "-v", "--version":
 		build()

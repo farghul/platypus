@@ -8,19 +8,19 @@ import (
 
 // Run the functions to gather premium plugin versions currently installed and available
 func subscription() string {
-	var exportInstalled = current("premium-plugin/wp-all-export-pro")
-	var ticketsInstalled = current("premium-plugin/event-tickets-plus")
 	var polylangInstalled = current("premium-plugin/polylang-pro")
-	var exportAvailable = latest(changelogs.WPExport, "h4")
-	var ticketsAvailable = latest(changelogs.Tickets, "Event Tickets Plus")
+	var exportInstalled = current("premium-plugin/wp-all-export-pro")
+	var spotlightInstalled = current("freemius/spotlight-social-photo-feeds-premium")
 	var polylangAvailable = latest(changelogs.Poly, "h4")
-	collect := results(ticketsAvailable, ticketsInstalled, "event-tickets-plus") + results(polylangAvailable, polylangInstalled, "polylang-pro") + results(exportAvailable, exportInstalled, "wp-all-export-pro")
+	var exportAvailable = latest(changelogs.WPExport, "h4")
+	var spotlightAvailable = latest(changelogs.Spotlight, "h2")
+	collect := results(polylangAvailable, polylangInstalled, "polylang-pro") + results(exportAvailable, exportInstalled, "wp-all-export-pro") + results(spotlightAvailable, spotlightInstalled, "spotlight-social-photo-feeds-premium")
 	return collect
 }
 
 func wpcore() string {
 	var coreInstalled = current("roots/wordpress")
-	var coreAvailable = latest(changelogs.WordPress, "wp-block-wporg-release-version")
+	var coreAvailable = sift()
 	collect := results(coreAvailable, coreInstalled, "wordpress")
 	return collect
 }
