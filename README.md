@@ -33,10 +33,11 @@ Creation of a `test.json` file with the following values as per your environment
 
 ## 🚧 Build
 
-Before building the application, change the value of the `base` `temp`, and `jsons` constants to reflect your environment:
+Before building the application, change the value of the `meta` and `temp` constants to reflect your environment:
 
 ``` go
-base, temp, jsons string = "/data/automation/", base + "temp/", base + "jsons/"
+meta     string = "/data/automation/jsons/"
+temp     string = "/data/automation/temp/"
 ```
 
 Then, from the root folder containing `main.go`, use the command that matches your environment:

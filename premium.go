@@ -6,18 +6,19 @@ import (
 	"strings"
 )
 
-// Run the functions to gather premium plugin versions currently installed and available
+// Gather premium plugin versions currently installed and available
 func subscription() string {
 	var polylangInstalled = current("premium-plugin/polylang-pro")
 	var exportInstalled = current("premium-plugin/wp-all-export-pro")
 	var spotlightInstalled = current("freemius/spotlight-social-photo-feeds-premium")
-	var polylangAvailable = latest(changelogs.Poly, "h4")
+	var polylangAvailable = latest(changelogs.Poly, "pre")
 	var exportAvailable = latest(changelogs.WPExport, "h4")
 	var spotlightAvailable = latest(changelogs.Spotlight, "h2")
 	collect := results(polylangAvailable, polylangInstalled, "polylang-pro") + results(exportAvailable, exportInstalled, "wp-all-export-pro") + results(spotlightAvailable, spotlightInstalled, "spotlight-social-photo-feeds-premium")
 	return collect
 }
 
+// Determine if a WordPress core update is needed
 func wpcore() string {
 	var coreInstalled = current("roots/wordpress")
 	var coreAvailable = sift()
