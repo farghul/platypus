@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-// Gather premium plugin versions currently installed and available
+// Gather the premium plugin semantic versions currently installed and available
 func subscription() string {
 	var polylangInstalled = current("premium-plugin/polylang-pro")
 	var exportInstalled = current("premium-plugin/wp-all-export-pro")
@@ -27,7 +27,7 @@ func wpcore() string {
 	return collect
 }
 
-// Compare the version numbers and print the results if an update is available
+// Print the results if an update is available
 func results(current, update, plugin string) string {
 	var status string
 
@@ -41,7 +41,7 @@ func results(current, update, plugin string) string {
 	return status
 }
 
-// Find the current versions of our premium plugins from the composer.json file
+// Find the current semantic version of our premium plugins from the composer.json file
 func current(p string) string {
 	where := strings.TrimSuffix(environment.Install, "web/wp") + "composer.json"
 	what := concat("ssh", "-T", environment.User+"@"+environment.Server, " cat "+where)
@@ -50,7 +50,7 @@ func current(p string) string {
 	return regmatch(strings.TrimSpace(string(grep)))
 }
 
-// Find the latest versions of our premium plugins from the applicable websites
+// Find the latest semantic version of our premium plugins from the applicable websites
 func latest(u, g string) string {
 	capture("curl", "-s", u, "-o", remains[2])
 	grep, _ := capture("grep", g, remains[2])
@@ -59,6 +59,7 @@ func latest(u, g string) string {
 	return regmatch(strings.TrimSpace(string(head)))
 }
 
+// Directly compare semantic versioning
 func comparison(v1, v2 string) int {
 	parts1 := strings.Split(v1, ".")
 	parts2 := strings.Split(v2, ".")
