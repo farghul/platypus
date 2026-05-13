@@ -3,6 +3,7 @@ package main
 import (
 	"os"
 	"regexp"
+	"strconv"
 	"strings"
 )
 
@@ -29,7 +30,10 @@ func wpcore() string {
 // Compare the version numbers and print the results if an update is available
 func results(update, current, plugin string) string {
 	var status string
-	if update > current {
+	available, _ := strconv.ParseFloat(update, 64)
+	installed, _ := strconv.ParseFloat(current, 64)
+
+	if available > installed {
 		if plugin == "wordpress" {
 			status = "roots/" + plugin + ":" + update + "\n"
 		} else {
