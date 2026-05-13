@@ -11,9 +11,9 @@ func subscription() string {
 	var polylangInstalled = current("premium-plugin/polylang-pro")
 	var exportInstalled = current("premium-plugin/wp-all-export-pro")
 	var spotlightInstalled = current("freemius/spotlight-social-photo-feeds-premium")
-	var polylangAvailable = latest(changelogs.Poly, "pre")
-	var exportAvailable = latest(changelogs.WPExport, "h4")
-	var spotlightAvailable = latest(changelogs.Spotlight, "h2")
+	var polylangAvailable = latest(changelogs.Poly, "<pre class=\"wp-block-preformatted\">")
+	var exportAvailable = latest(changelogs.WPExport, "<h4>")
+	var spotlightAvailable = latest(changelogs.Spotlight, "<h2>v")
 	collect := results(polylangAvailable, polylangInstalled, "polylang-pro") + results(exportAvailable, exportInstalled, "wp-all-export-pro") + results(spotlightAvailable, spotlightInstalled, "spotlight-social-photo-feeds-premium")
 	return collect
 }
