@@ -15,7 +15,7 @@ func subscription() string {
 	var polylangAvailable = latest(changelogs.Poly, " (2")
 	var exportAvailable = latest(changelogs.WPExport, "<h4>")
 	var spotlightAvailable = latest(changelogs.Spotlight, "<h2>v")
-	collect := results(polylangAvailable, polylangInstalled, "polylang-pro") + results(exportAvailable, exportInstalled, "wp-all-export-pro") + results(spotlightAvailable, spotlightInstalled, "spotlight-social-photo-feeds-premium")
+	collect := results(polylangInstalled, polylangAvailable, "polylang-pro") + results(exportInstalled, exportAvailable, "wp-all-export-pro") + results(spotlightInstalled, spotlightAvailable, "spotlight-social-photo-feeds-premium")
 	return collect
 }
 
@@ -23,17 +23,15 @@ func subscription() string {
 func wpcore() string {
 	var coreInstalled = current("roots/wordpress")
 	var coreAvailable = sift()
-	collect := results(coreAvailable, coreInstalled, "wordpress")
+	collect := results(coreInstalled, coreAvailable, "wordpress")
 	return collect
 }
 
 // Compare the version numbers and print the results if an update is available
-func results(update, current, plugin string) string {
+func results(current, update, plugin string) string {
 	var status string
-	available, _ := strconv.ParseFloat(update, 64)
-	installed, _ := strconv.ParseFloat(current, 64)
 
-	if available > installed {
+	if comparison(current, update) < 0 {
 		if plugin == "wordpress" {
 			status = "roots/" + plugin + ":" + update + "\n"
 		} else {
@@ -59,6 +57,33 @@ func latest(u, g string) string {
 	inspect(os.WriteFile(remains[0], grep, 0666))
 	head, _ := capture("head", "-n 1", remains[0])
 	return regmatch(strings.TrimSpace(string(head)))
+}
+
+func comparison(v1, v2 string) int {
+	parts1 := strings.Split(v1, ".")
+	parts2 := strings.Split(v2, ".")
+
+	maxLen := max(len(parts2), len(parts1))
+
+	for i := range maxLen {
+		var p1, p2 int
+
+		if i < len(parts1) {
+			p1, _ = strconv.Atoi(parts1[i])
+		}
+
+		if i < len(parts2) {
+			p2, _ = strconv.Atoi(parts2[i])
+		}
+
+		if p1 > p2 {
+			return 1
+		} else if p1 < p2 {
+			return -1
+		}
+	}
+
+	return 0
 }
 
 // Remove all extraneous material, leaving only the version number itself
