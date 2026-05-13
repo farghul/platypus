@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -68,4 +69,14 @@ func concat(method, flag, task, pipe string) []byte {
 
 	out, _ := cmd.CombinedOutput()
 	return out
+}
+
+// Println function for colourized text
+func (c Color) Println(text string) {
+	fmt.Println(string(c) + text + Reset)
+}
+
+// Printf function for colourized text
+func (c Color) Printf(format string, a ...any) {
+	fmt.Printf(string(c)+format+Reset, a...)
 }
